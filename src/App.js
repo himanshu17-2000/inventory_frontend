@@ -1,6 +1,6 @@
-import  React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import {toast} from 'react-toastify' 
+import { toast } from 'react-toastify'
 
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
- 
+
 //components
 
 import Login from "./components/Login";
@@ -18,7 +18,7 @@ import Dashboard from "./components/Dashboard";
 import About from "./components/About/About";
 import Service from "./components/Services/Service";
 
-const url ="http://localhost:5000/auth" 
+const url = "http://localhost:5000/auth"
 toast.configure()
 function App() {
 
@@ -27,24 +27,24 @@ function App() {
   const setAuth = boolean => {
     setIsAuthenticated(boolean);
   };
-const isAuth = async () =>{
-  try {
-    
-    const response = await fetch(`${url}/is-verify` ,{
-      method :"POST" ,
-      headers : {token : localStorage.token} ,
-    })
-    
-    const parseRes = await response.json() 
-   
-    parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
-  } catch (error) {
-    console.log(error.messsage + " App.js ")
+  const isAuth = async () => {
+    try {
+
+      const response = await fetch(`${url}/is-verify`, {
+        method: "POST",
+        headers: { token: localStorage.token },
+      })
+
+      const parseRes = await response.json()
+
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
+    } catch (error) {
+      console.log(error.messsage + " App.js ")
+    }
   }
-}
-  useEffect(()=>{
-    isAuth() 
-  },[])
+  useEffect(() => {
+    isAuth()
+  }, [])
   return (
     <Fragment>
       <Router>
@@ -57,7 +57,7 @@ const isAuth = async () =>{
                 !isAuthenticated ? (
                   <Login {...props} setAuth={setAuth} />
                 ) : (
-                  <Redirect to="/" />
+                  <Redirect to="/dashboard" />
                 )
               }
             />
@@ -68,13 +68,14 @@ const isAuth = async () =>{
                 !isAuthenticated ? (
                   <Register {...props} setAuth={setAuth} />
                 ) : (
-                  <Redirect to="/" />
+                  <Redirect to="/dashboard" />
                 )
               }
             />
+            
             <Route
               exact
-              path="/"
+              path="/dashboard"
               render={props =>
                 isAuthenticated ? (
                   <Dashboard {...props} setAuth={setAuth} />
@@ -83,28 +84,30 @@ const isAuth = async () =>{
                 )
               }
             />
+            {/* i changed all  */}
             <Route
               exact
-              path="/about"
+              path="/dashboard/about"
               render={props =>
-                !isAuthenticated ? (
+                isAuthenticated ? (
                   <About {...props} setAuth={setAuth} />
                 ) : (
-                  <Redirect to="/" />
+                  <Redirect to="/login" />
                 )
               }
             />
             <Route
               exact
-              path="/service"
+              path="/dashboard/service"
               render={props =>
-                !isAuthenticated ? (
+                isAuthenticated ? (
                   <Service {...props} setAuth={setAuth} />
                 ) : (
-                  <Redirect to="/" />
+                  <Redirect to="/login" />
                 )
               }
             />
+            <Redirect to="/login" />
           
           </Switch>
         </div>

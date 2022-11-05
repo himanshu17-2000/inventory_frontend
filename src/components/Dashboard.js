@@ -14,6 +14,7 @@ import Home from "./Home/Home";
 import About from "./About/About"
 import Service from "./Services/Service"
 import Modal from "./widgets/Modal";
+import ResponsiveTabs from "./ResponsiveTabs/ResponsiveTabs";
 
 const url = "http://localhost:5000"
 
@@ -28,7 +29,7 @@ const Dashboard = ({ setAuth }) => {
   const [text, settext] = useState("")
   const [items, setitems] = useState([])
   const [flag, setflag] = useState(Boolean)
-  const [file, setfile] = useState({}) 
+  const [file, setfile] = useState({})
 
   const getName = async (getItems) => {
     try {
@@ -102,6 +103,9 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
 
+
+
+
       <div className="container-fluid text-center">
         <Navbar Logout={Logout} />
         <h1>The Content</h1>
@@ -112,6 +116,7 @@ const Dashboard = ({ setAuth }) => {
         <div className="row">
           {items.map(item => <ItemCard key={Math.floor(Math.random() * 10000000000001)} setflag={setflag} data={item} />)}
         </div>
+        
 
 
 

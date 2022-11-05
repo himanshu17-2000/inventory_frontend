@@ -16,10 +16,10 @@ function Navbar({ Logout }) {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/about">about</Link>
+                                <Link className="nav-link active" to="/dashboard/about">about</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/service">service</Link>
+                                <Link className="nav-link active" to="/dashboard/service">service</Link>
                             </li>
                             
                         </ul>
